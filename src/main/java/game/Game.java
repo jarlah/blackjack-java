@@ -78,7 +78,7 @@ class Deck {
     }
 
     static List<Card> allCards() {
-        List<Card> cards = new ArrayList<Card>();
+        List<Card> cards = new ArrayList<>();
         for(Suit suit: Suit.values()) {
             for(Rank rank: Rank.values()) {
                 cards.add(new Card(suit, rank));
@@ -168,15 +168,22 @@ public class Game {
             System.out.println("Hit or Stand?");
             return "s".equalsIgnoreCase(new Scanner(System.in).nextLine());
         };
-        Supplier<Integer> betSupplier = () -> new Scanner(System.in).nextInt();
+        Function<Integer, Integer> betSupplier = (currentCredit) -> {
+            System.out.println("Please enter bet (credit: " + currentCredit + ") ");
+            int newBet = new Scanner(System.in).nextInt();
+            while(newBet > currentCredit) {
+                System.out.println("Too high. Please enter bet (credit: " + currentCredit + ") ");
+                newBet = new Scanner(System.in).nextInt();
+            }
+            return newBet;
+        };
         GameState gameState = new GameState(100);
         gameLoop(gameState, randomShuffler, betSupplier, shouldContinue, shouldStand);
     }
 
-    static void gameLoop(GameState gameState, Function<List<Card>, List<Card>> shuffleFn, Supplier<Integer> betSupplier, Supplier<Boolean> shouldContinue, Supplier<Boolean> shouldStand) {
+    static void gameLoop(GameState gameState, Function<List<Card>, List<Card>> shuffleFn, Function<Integer, Integer> betSupplier, Supplier<Boolean> shouldContinue, Supplier<Boolean> shouldStand) {
         Deck deck = Deck.shuffle(shuffleFn);
-        System.out.println("Please enter bet (credit: " + gameState.credit + ") ");
-        int bet = betSupplier.get();
+        int bet = betSupplier.apply(gameState.credit);
         Tuple3<Hand, Hand, Deck> hands = Dealer.dealHands(deck);
         boolean playerWon = roundLoop(hands.v1, hands.v2, hands.v3, false, shouldStand);
         GameState newState = new GameState(gameState.credit + (playerWon ? bet : -bet));
