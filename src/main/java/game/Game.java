@@ -232,14 +232,14 @@ public class Game {
         return new Tuple4<>(playerHand, dealerHand, deck, stand);
     }
 
+    static void showCards(Hand playerHand, Hand dealerHand, boolean showDealer) {
+        System.out.println("Dealer hand: " + dealerHand.showCards(showDealer));
+        System.out.println("Player hand: " + playerHand.showCards(false));
+    }
+
     static boolean summary(Hand playerHand, Hand dealerHand, boolean won) {
         System.out.println("*** You " + (won ? "win" : "loose!") + " ***");
         showCards(playerHand, dealerHand, false);
         return won;
-    }
-
-    static void showCards(Hand playerHand, Hand dealerHand, boolean showDealer) {
-        System.out.println("Dealer hand: " + dealerHand.showCards(showDealer));
-        System.out.println("Player hand: " + playerHand.showCards(false));
     }
 }
