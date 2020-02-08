@@ -7,38 +7,23 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class Tuple2<T1, T2>  {
-    final T1 v1;
-    final T2 v2;
-
+    final T1 v1; final T2 v2;
     Tuple2(T1 v1, T2 v2) {
-        this.v1 = v1;
-        this.v2 = v2;
+        this.v1 = v1; this.v2 = v2;
     }
 }
 
 class Tuple3<T1, T2, T3>  {
-    final T1 v1;
-    final T2 v2;
-    final T3 v3;
-
+    final T1 v1; final T2 v2; final T3 v3;
     Tuple3(T1 v1, T2 v2, T3 v3) {
-        this.v1 = v1;
-        this.v2 = v2;
-        this.v3 = v3;
+        this.v1 = v1; this.v2 = v2; this.v3 = v3;
     }
 }
 
 class Tuple4<T1, T2, T3, T4>  {
-    final T1 v1;
-    final T2 v2;
-    final T3 v3;
-    final T4 v4;
-
+    final T1 v1; final T2 v2; final T3 v3; final T4 v4;
     Tuple4(T1 v1, T2 v2, T3 v3, T4 v4) {
-        this.v1 = v1;
-        this.v2 = v2;
-        this.v3 = v3;
-        this.v4 = v4;
+        this.v1 = v1; this.v2 = v2; this.v3 = v3; this.v4 = v4;
     }
 }
 
